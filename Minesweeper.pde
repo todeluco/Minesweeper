@@ -1,8 +1,9 @@
 import de.bezier.guido.*;
-public final static int NUM_ROWS = 10;
-public final static int NUM_COLS = 10;
+public final static int NUM_ROWS = 5;
+public final static int NUM_COLS = 5;
+//public final static int NUM_BOMBS = 2;
 private MSButton[][] buttons; //2d array of minesweeper buttons
-private ArrayList <MSButton> mines;//ArrayList of just the minesweeper buttons that are mined
+private ArrayList <MSButton> mines = new ArrayList <MSButton>();//ArrayList of just the minesweeper buttons that are mined
 
 void setup ()
 {
@@ -25,6 +26,12 @@ public void setMines()
 {
     int r = (int)(Math.random() * NUM_ROWS);
     int c = (int)(Math.random() * NUM_COLS);
+    if(!mines.contains(r)){
+        if(!mines.contains(c)){
+            mines.add(buttons[r][c]);
+            System.out.println(r + "," + c);
+        }    
+    }
 }
 
 public void draw ()
@@ -87,8 +94,8 @@ public class MSButton
     {    
         if (flagged)
             fill(0);
-        // else if( clicked && mines.contains(this) ) 
-        //     fill(255,0,0);
+        else if( clicked && mines.contains(this) ) 
+            fill(255,0,0);
         else if(clicked)
             fill( 200 );
         else 
